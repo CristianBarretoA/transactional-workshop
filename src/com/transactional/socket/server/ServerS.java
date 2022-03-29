@@ -48,7 +48,7 @@ public class ServerS extends ASocket {
 	 * @return host:port
 	 */
 	public String bind() {
-		return this.serverSocket.getLocalSocketAddress().toString();
+		return this.ip + ":" + this.port;
 	}
 
 	/**

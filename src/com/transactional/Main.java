@@ -14,12 +14,20 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		String ip = "127.0.0.1";
+		int port = 5000;
+		
+		if(args.length == 2) {
+			ip = args[0];
+			port = Integer.parseInt(args[1]);
+		}
+		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Desea ejecutar el 1:servidor o 2:cliente en esta maquina? (Digite el número)");
 		Integer option = Integer.parseInt(sc.next());
 		switch (option) {
 		case 1:
-			ServerS server = new ServerS();
+			ServerS server = new ServerS(ip, port);
 			server.socket();
 			System.out.println("Server port: " + server.bind());
 			server.listen();
@@ -40,7 +48,7 @@ public class Main {
 				System.out.println("Por favor digite el valor de la transaccion");
 				value = sc.next();
 				message = AccountDTO.buildStoreMessage(accountNumber, value);
-				client = new ClientS();
+				client = new ClientS(ip, port);
 				try {
 					client.socket();
 					client.write(message);
@@ -56,7 +64,7 @@ public class Main {
 				System.out.println("Por favor digite su numero de cuenta");
 				accountNumber = sc.next();
 				message = AccountDTO.buildGetMessage(accountNumber);
-				client = new ClientS();
+				client = new ClientS(ip, port);
 				try {
 					client.socket();
 					client.write(message);

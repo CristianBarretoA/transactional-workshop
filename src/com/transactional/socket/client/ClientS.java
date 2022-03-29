@@ -3,6 +3,7 @@ package com.transactional.socket.client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -26,11 +27,11 @@ public class ClientS extends ASocket {
 	@Override
 	public void socket() {
 		try {
-			this.socket = new Socket(this.ip, this.port);
-			System.out.println("Cliente Iniciado...");			
+			this.socket = new Socket(InetAddress.getByName(this.ip), this.port);
+			System.out.println("Iniciado Cliente en direccion ... " + this.socket.getLocalSocketAddress());			
 			this.in = new DataInputStream(this.socket.getInputStream());
-			this.out = new DataOutputStream(this.socket.getOutputStream());		
-
+			this.out = new DataOutputStream(this.socket.getOutputStream());	
+		
 		} catch (UnknownHostException e) {
 			System.out.println("Socket-Host error: " + e.getMessage());
 		} catch (IOException e) {
